@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error – Contacts App</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="brand">📇 Contacts</a>
+      <a href="/contacts">My Contacts</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Something went wrong</h1>
+    <p class="flash flash-error"><%= message %></p>
+    <a href="/" class="btn btn-primary">Go Home</a>
+  </main>
+  <footer><p>Contacts App &copy; <%= new Date().getFullYear() %></p></footer>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacts App – Import from Social Networks</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="brand">📇 Contacts</a>
+      <a href="/contacts">My Contacts</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <h1>Import Contacts from Social Networks</h1>
+    <p class="subtitle">
+      Connect your LinkedIn, Facebook or Instagram account to automatically
+      import your profile as a contact into the database.
+    </p>
+
+    <% if (messages.success && messages.success.length) { %>
+      <div class="flash flash-success"><%= messages.success[0] %></div>
+    <% } %>
+    <% if (messages.error && messages.error.length) { %>
+      <div class="flash flash-error"><%= messages.error[0] %></div>
+    <% } %>
+
+    <div class="platform-cards">
+
+      <!-- LinkedIn -->
+      <div class="card card-linkedin">
+        <div class="card-logo">in</div>
+        <h2>LinkedIn</h2>
+        <p>Import your professional profile – name, email, and profile photo.</p>
+        <% if (linkedinEnabled) { %>
+          <a href="/auth/linkedin" class="btn btn-linkedin">Connect LinkedIn</a>
+        <% } else { %>
+          <span class="btn btn-disabled">Not configured</span>
+        <% } %>
+      </div>
+
+      <!-- Facebook -->
+      <div class="card card-facebook">
+        <div class="card-logo">f</div>
+        <h2>Facebook</h2>
+        <p>Import your Facebook profile – name, email, and profile photo.</p>
+        <% if (facebookEnabled) { %>
+          <a href="/auth/facebook" class="btn btn-facebook">Connect Facebook</a>
+        <% } else { %>
+          <span class="btn btn-disabled">Not configured</span>
+        <% } %>
+      </div>
+
+      <!-- Instagram -->
+      <div class="card card-instagram">
+        <div class="card-logo">&#9679;</div>
+        <h2>Instagram</h2>
+        <p>Import your Instagram profile – username and account details.</p>
+        <% if (instagramEnabled) { %>
+          <a href="/auth/instagram" class="btn btn-instagram">Connect Instagram</a>
+        <% } else { %>
+          <span class="btn btn-disabled">Not configured</span>
+        <% } %>
+      </div>
+
+    </div>
+
+    <p class="hint">
+      <strong>Note:</strong> Each platform uses OAuth 2.0 – you will be redirected
+      to the social network to authorise this app. No passwords are stored.
+    </p>
+  </main>
+
+  <footer>
+    <p>Contacts App &copy; <%= new Date().getFullYear() %></p>
+  </footer>
+</body>
+</html>

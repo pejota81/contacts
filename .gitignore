@@ -1,0 +1,5 @@
+node_modules/
+contacts.db
+.env
+*.db-shm
+*.db-wal

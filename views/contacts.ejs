@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Contacts – Contacts App</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/" class="brand">📇 Contacts</a>
+      <a href="/contacts">My Contacts</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="contacts-header">
+      <h1>My Contacts</h1>
+      <a href="/" class="btn btn-primary">+ Import More</a>
+    </div>
+
+    <% if (messages.success && messages.success.length) { %>
+      <div class="flash flash-success"><%= messages.success[0] %></div>
+    <% } %>
+    <% if (messages.error && messages.error.length) { %>
+      <div class="flash flash-error"><%= messages.error[0] %></div>
+    <% } %>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      <a href="/contacts" class="tab <%= source === '' ? 'active' : '' %>">All</a>
+      <a href="/contacts?source=linkedin"  class="tab <%= source === 'linkedin'  ? 'active' : '' %>">LinkedIn</a>
+      <a href="/contacts?source=facebook"  class="tab <%= source === 'facebook'  ? 'active' : '' %>">Facebook</a>
+      <a href="/contacts?source=instagram" class="tab <%= source === 'instagram' ? 'active' : '' %>">Instagram</a>
+    </div>
+
+    <% if (contacts.length === 0) { %>
+      <div class="empty-state">
+        <p>No contacts yet. <a href="/">Import from a social network.</a></p>
+      </div>
+    <% } else { %>
+      <table class="contacts-table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Source</th>
+            <th>Profile</th>
+            <th>Imported</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contacts.forEach(contact => { %>
+            <tr>
+              <td class="td-photo">
+                <% if (contact.photo_url) { %>
+                  <img src="<%= contact.photo_url %>" alt="<%= contact.name %>" class="avatar" />
+                <% } else { %>
+                  <div class="avatar-placeholder"><%= contact.name.charAt(0).toUpperCase() %></div>
+                <% } %>
+              </td>
+              <td><strong><%= contact.name %></strong></td>
+              <td><%= contact.email || '–' %></td>
+              <td>
+                <span class="badge badge-<%= contact.source %>"><%= contact.source %></span>
+              </td>
+              <td>
+                <% if (contact.profile_url) { %>
+                  <a href="<%= contact.profile_url %>" target="_blank" rel="noopener noreferrer">View</a>
+                <% } else { %>
+                  –
+                <% } %>
+              </td>
+              <td class="td-date"><%= new Date(contact.created_at).toLocaleDateString() %></td>
+              <td>
+                <form method="POST" action="/contacts/<%= contact.id %>/delete"
+                      onsubmit="return confirm('Delete this contact?')">
+                  <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>Contacts App &copy; <%= new Date().getFullYear() %></p>
+  </footer>
+</body>
+</html>
